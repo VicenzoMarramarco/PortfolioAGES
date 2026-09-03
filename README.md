@@ -39,3 +39,11 @@ See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rule
 | `npm run dev` | Inicia o servidor de desenvolvimento |
 | `npm run build` | Cria o build para produção |
 | `npm run preview` | Visualiza o build de produção |
+
+## Doom
+
+Este projeto inclui uma versão local do port para WebAssembly do DOOM, baseada no projeto [wasm-fizzbuzz](https://github.com/diekmann/wasm-fizzbuzz) e no código-fonte original do [DOOM](https://github.com/id-Software/DOOM).
+
+O jogo é carregado a partir de `public/doom`, sem depender do GitHub durante a execução. Ele não é um produto oficial da id Software.
+
+Os avisos e termos originais devem ser consultados antes de distribuir o projeto: [DOOMLIC.TXT](https://github.com/diekmann/wasm-fizzbuzz/blob/main/doom/linuxdoom-1.10/DOOMLIC.TXT) e [licença do código-fonte](https://github.com/id-Software/DOOM/blob/master/README.TXT).

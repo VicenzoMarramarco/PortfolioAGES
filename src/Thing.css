@@ -66,13 +66,13 @@
 }
 
 .doom-game {
-  width: min(100%, 1080px);
-  height: min(820px, calc(100vh - 6rem));
-  min-height: 620px;
-  border: 2px solid rgba(244, 232, 92, 0.7);
+  width: min(100%, 1180px);
+  height: min(840px, calc(100vh - 5rem));
+  min-height: 640px;
+  border: 2px solid #d71920;
   border-radius: 8px;
   background: #000;
-  box-shadow: 0 0 30px rgba(244, 232, 92, 0.2);
+  box-shadow: 0 0 30px rgba(215, 25, 32, 0.3);
 }
 
 .doom-controls {
@@ -89,6 +89,17 @@
   height: 100vh;
   border: 0;
   border-radius: 0;
+}
+
+.doom-controls .back-button {
+  color: #fff;
+  background: #080808;
+  border: 1px solid #d71920;
+}
+
+.doom-controls .back-button:hover {
+  background: #d71920;
+  color: #fff;
 }
 
 .wave-stars-container {
