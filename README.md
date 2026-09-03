@@ -32,7 +32,10 @@ If you are developing a production application, we recommend enabling type-aware
 See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
 
 
+## Comandos
 
-npm run dev - Inicia servidor de desenvolvimento
-npm run build - Cria build para produção
-npm run preview - Visualiza o build de produção
+| Comando | Descrição |
+| --- | --- |
+| `npm run dev` | Inicia o servidor de desenvolvimento |
+| `npm run build` | Cria o build para produção |
+| `npm run preview` | Visualiza o build de produção |
