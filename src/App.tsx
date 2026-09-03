@@ -6,10 +6,30 @@ import './Thing.css'
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null)
+  const [isDoomFullscreen, setIsDoomFullscreen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const waveContainerRef = useRef<HTMLDivElement>(null)
   const starsRef = useRef<HTMLDivElement[]>([])
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const doomFrameRef = useRef<HTMLIFrameElement>(null)
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsDoomFullscreen(document.fullscreenElement === doomFrameRef.current)
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
+  }, [])
+
+  const toggleDoomFullscreen = async () => {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen()
+      return
+    }
+
+    await doomFrameRef.current?.requestFullscreen()
+  }
 
   useEffect(() => {
     if (currentPage !== 'home' || !containerRef.current) return
@@ -191,11 +211,31 @@ function App() {
             <button type="button" className="portfolio-nav-button" onClick={() => setCurrentPage('home')}>
               Home
             </button>
-            <button type="button" className="portfolio-nav-button" disabled title="Doom estará disponível em breve">
+            <button type="button" className="portfolio-nav-button" onClick={() => setCurrentPage('doom')}>
               Doom
             </button>
           </nav>
         </div>
+      ) : currentPage === 'doom' ? (
+        <section className="doom-page">
+          <iframe
+            ref={doomFrameRef}
+            className="doom-game"
+            src="/doom/index.html"
+            title="Doom em WebAssembly"
+          />
+          <div className="doom-controls">
+            <button type="button" className="back-button" onClick={toggleDoomFullscreen}>
+              {isDoomFullscreen ? 'Sair da tela cheia' : 'Tela cheia'}
+            </button>
+            <button type="button" className="back-button" onClick={() => setCurrentPage('portfolio')}>
+              Voltar
+            </button>
+            <button type="button" className="back-button" onClick={() => setCurrentPage('home')}>
+              Home
+            </button>
+          </div>
+        </section>
       ) : (
         <section className={`detail-page ${currentPage}-page`}>
           <div ref={waveContainerRef} className="wave-stars-container"></div>
