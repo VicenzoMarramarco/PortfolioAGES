@@ -192,6 +192,7 @@ function App() {
               <>
                 <p className="page-label">Selected work</p>
                 <div className="projects-gallery">
+                  <title>Projects</title>
                   <div className="project-frame">
                     <div className="frame-outer">
                       <div className="frame-inner">
@@ -216,6 +217,7 @@ function App() {
             {currentPage === 'about' && (
               <div className="about-content">
                 <section className="certificates-section">
+                  <title>AboutMe</title>
                   <div className="about-text certificates-heading">
                     <p className="page-label">Meus certificados</p>
                     <h2>Conhecimentos e conquistas</h2>
@@ -271,10 +273,11 @@ function App() {
             )}
             {currentPage === 'contact' && (
               <>
-                <p className="page-label">Let's talk</p>
-                <div className="social-links" aria-label="Redes sociais">
-                  <a href="https://www.linkedin.com/in/vicenzo-marramarco-462165290" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                 <title>Contact</title>
+                  <p className="page-label">Let's talk</p>
+                   <div className="social-links" aria-label="Redes sociais">
+                     <a href="https://www.linkedin.com/in/vicenzo-marramarco-462165290" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                       <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M6.5 8.5H3V21h3.5V8.5ZM4.75 3A2.05 2.05 0 1 0 4.75 7.1 2.05 2.05 0 0 0 4.75 3ZM21 13.85c0-3.76-2-5.5-4.67-5.5a4.02 4.02 0 0 0-3.58 1.97V8.5H9.25V21h3.5v-6.19c0-1.63.3-3.2 2.32-3.2 1.99 0 2.02 1.86 2.02 3.3V21H21v-7.15Z" />
                     </svg>
                   </a>
