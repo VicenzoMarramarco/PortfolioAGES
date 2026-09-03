@@ -12,13 +12,14 @@ function App() {
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    if (!containerRef.current) return
+    if (currentPage !== 'home' || !containerRef.current) return
 
     // Gerar 300 estrelas aleatórias
     const starCount = 250
     const container = containerRef.current
     const centerX = window.innerWidth / 2
     const centerY = window.innerHeight / 2
+    gsap.set(buttonRef.current, { opacity: 0, scale: 0.5 })
 
     // Limpar estrelas anteriores
     container.innerHTML = ''
@@ -70,8 +71,11 @@ function App() {
       }
     }, 3000)
 
-    return () => clearTimeout(timeout)
-  }, [])
+    return () => {
+      clearTimeout(timeout)
+      gsap.killTweensOf(starsRef.current)
+    }
+  }, [currentPage])
 
   useEffect(() => {
     if (currentPage === 'home' || !waveContainerRef.current) return
@@ -183,6 +187,14 @@ function App() {
             <button className="projects-button" onClick={() => setCurrentPage('about')}>About Me</button>
             <button className="projects-button" onClick={() => setCurrentPage('contact')}>Contact</button>
           </div>
+          <nav className="portfolio-nav" aria-label="Navegação principal">
+            <button type="button" className="portfolio-nav-button" onClick={() => setCurrentPage('home')}>
+              Home
+            </button>
+            <button type="button" className="portfolio-nav-button" disabled title="Doom estará disponível em breve">
+              Doom
+            </button>
+          </nav>
         </div>
       ) : (
         <section className={`detail-page ${currentPage}-page`}>
