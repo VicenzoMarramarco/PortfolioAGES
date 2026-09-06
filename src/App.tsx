@@ -3,16 +3,59 @@ import gsap from 'gsap'
 import './App.css'
 import './Thing.css'
 
+const backgroundAudioSource = new URL('../audio/audiobackground.mp3', import.meta.url).href
+
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null)
   const [isDoomFullscreen, setIsDoomFullscreen] = useState(false)
+  const [isMusicEnabled, setIsMusicEnabled] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
   const waveContainerRef = useRef<HTMLDivElement>(null)
   const starsRef = useRef<HTMLDivElement[]>([])
   const buttonRef = useRef<HTMLButtonElement>(null)
   const startHintRef = useRef<HTMLParagraphElement>(null)
   const doomFrameRef = useRef<HTMLIFrameElement>(null)
+  const backgroundAudioRef = useRef<HTMLAudioElement>(null)
+
+  useEffect(() => {
+    const audio = backgroundAudioRef.current
+    if (!audio || !isMusicEnabled) return
+
+    audio.volume = 0.35
+    const tryPlayAudio = () => {
+      void audio.play().catch(() => undefined)
+    }
+
+    tryPlayAudio()
+    window.addEventListener('pointerdown', tryPlayAudio, { once: true })
+    window.addEventListener('keydown', tryPlayAudio, { once: true })
+
+    return () => {
+      window.removeEventListener('pointerdown', tryPlayAudio)
+      window.removeEventListener('keydown', tryPlayAudio)
+    }
+  }, [isMusicEnabled])
+
+  const startPortfolio = () => {
+    const audio = backgroundAudioRef.current
+    if (isMusicEnabled && audio) void audio.play().catch(() => undefined)
+    setCurrentPage('portfolio')
+  }
+
+  const toggleMusic = () => {
+    const audio = backgroundAudioRef.current
+    if (!audio) return
+
+    if (isMusicEnabled) {
+      audio.pause()
+      setIsMusicEnabled(false)
+      return
+    }
+
+    setIsMusicEnabled(true)
+    void audio.play().catch(() => undefined)
+  }
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -81,13 +124,13 @@ function App() {
       })
     })
 
-    // Mostrar botão após 3 segundos
+    // Mostrar botão após 1 segundos
     const timeout = setTimeout(() => {
       if (startHintRef.current) {
         gsap.set(startHintRef.current, { visibility: 'visible' })
         gsap.to(startHintRef.current, {
           opacity: 1,
-          duration: 0.35,
+          duration: 1,
           ease: 'none',
         })
       }
@@ -96,7 +139,7 @@ function App() {
         gsap.to(buttonRef.current, {
           opacity: 1,
           scale: 1,
-          duration: 0.8,
+          duration: 1,
           ease: 'back.out',
         })
       }
@@ -204,12 +247,21 @@ function App() {
             <button 
               ref={buttonRef} 
               className="start-button"
-              onClick={() => setCurrentPage('portfolio')}
+              onClick={startPortfolio}
             >
               Start
             </button>
             <p ref={startHintRef} className="start-hint">Press start to initialize</p>
           </div>
+          <button
+            type="button"
+            className={`music-toggle${isMusicEnabled ? '' : ' music-off'}`}
+            onClick={toggleMusic}
+            aria-label={isMusicEnabled ? 'Disable background music' : 'Enable background music'}
+            title={isMusicEnabled ? 'Disable background music' : 'Enable background music'}
+          >
+            {isMusicEnabled ? 'Sound: on' : 'Sound: off'}
+          </button>
         </div>
       ) : currentPage === 'portfolio' ? (
         <div className="portfolioThings">
@@ -220,9 +272,20 @@ function App() {
             <button className="projects-button" onClick={() => setCurrentPage('contact')}>Contact</button>
           </div>
           <nav className="portfolio-nav" aria-label="Navegação principal">
-            <button type="button" className="portfolio-nav-button" onClick={() => setCurrentPage('home')}>
-              Home
-            </button>
+            <div className="portfolio-home-controls">
+              <button
+                type="button"
+                className={`music-toggle${isMusicEnabled ? '' : ' music-off'}`}
+                onClick={toggleMusic}
+                aria-label={isMusicEnabled ? 'Disable background music' : 'Enable background music'}
+                title={isMusicEnabled ? 'Disable background music' : 'Enable background music'}
+              >
+                {isMusicEnabled ? 'Sound: on' : 'Sound: off'}
+              </button>
+              <button type="button" className="portfolio-nav-button" onClick={() => setCurrentPage('home')}>
+                Home
+              </button>
+            </div>
             <button type="button" className="portfolio-nav-button-doom" onClick={() => setCurrentPage('doom')}>
               Doom
             </button>
@@ -251,6 +314,13 @@ function App() {
       ) : (
         <section className={`detail-page ${currentPage}-page`}>
           <div ref={waveContainerRef} className="wave-stars-container"></div>
+          <button
+            type="button"
+            className="back-button detail-back-top"
+            onClick={() => setCurrentPage('portfolio')}
+          >
+            Back
+          </button>
           <div className="detail-content">
             {currentPage === 'projects' && (
               <>
@@ -398,12 +468,10 @@ function App() {
                 </div>
               </>
             )}
-            <button className="back-button" onClick={() => setCurrentPage('portfolio')}>
-              Back
-            </button>
           </div>
         </section>
       )}
+      <audio ref={backgroundAudioRef} src={backgroundAudioSource} autoPlay loop preload="auto" />
       {selectedImage && (
         <div className="image-modal" role="dialog" aria-modal="true" aria-label={selectedImage.alt} onClick={() => setSelectedImage(null)}>
           <button type="button" className="image-modal-close" onClick={() => setSelectedImage(null)} aria-label="Fechar imagem ampliada">
