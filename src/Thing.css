@@ -63,14 +63,15 @@
   font-weight: 700;
   cursor: pointer;
   pointer-events: auto;
-  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .portfolio-nav-button-doom:hover:not(:disabled) {
   transform: translateY(-3px);
   background: rgb(255, 4, 0);
   border-color: #000000;
-  color:#000
+  color: #000;
+  box-shadow: 0 0 14px rgba(255, 4, 0, 0.9), 0 0 32px rgba(215, 25, 32, 0.7);
 }
 
 .doom-page {
@@ -336,6 +337,57 @@
   aspect-ratio: 4 / 3;
   object-fit: contain;
   background: rgba(255, 255, 255, 0.92);
+}
+
+.technologies-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.technologies-section h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.6rem;
+}
+
+.technologies-gallery {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.technology-card {
+  display: flex;
+  min-height: 7rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 0.5rem;
+  color: #9aa7bb;
+  background: rgba(17, 23, 36, 0.9);
+  border: 1px solid rgba(154, 167, 187, 0.2);
+  border-radius: 12px;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.technology-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(244, 232, 92, 0.7);
+  background: rgba(27, 35, 52, 0.95);
+}
+
+.technology-card img {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+}
+
+.technology-card span {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
 }
 
 .image-modal {
@@ -628,6 +680,10 @@
 
   .certificates-gallery {
     grid-template-columns: 1fr;
+  }
+
+  .technologies-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .projects-gallery {

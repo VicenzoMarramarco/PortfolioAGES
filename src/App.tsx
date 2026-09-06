@@ -11,6 +11,7 @@ function App() {
   const waveContainerRef = useRef<HTMLDivElement>(null)
   const starsRef = useRef<HTMLDivElement[]>([])
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const startHintRef = useRef<HTMLParagraphElement>(null)
   const doomFrameRef = useRef<HTMLIFrameElement>(null)
 
   useEffect(() => {
@@ -40,6 +41,7 @@ function App() {
     const centerX = window.innerWidth / 2
     const centerY = window.innerHeight / 2
     gsap.set(buttonRef.current, { opacity: 0, scale: 0.5 })
+    gsap.set(startHintRef.current, { autoAlpha: 0 })
 
     // Limpar estrelas anteriores
     container.innerHTML = ''
@@ -81,6 +83,15 @@ function App() {
 
     // Mostrar botão após 3 segundos
     const timeout = setTimeout(() => {
+      if (startHintRef.current) {
+        gsap.set(startHintRef.current, { visibility: 'visible' })
+        gsap.to(startHintRef.current, {
+          opacity: 1,
+          duration: 0.35,
+          ease: 'none',
+        })
+      }
+
       if (buttonRef.current) {
         gsap.to(buttonRef.current, {
           opacity: 1,
@@ -197,6 +208,7 @@ function App() {
             >
               Start
             </button>
+            <p ref={startHintRef} className="start-hint">Press start to initialize</p>
           </div>
         </div>
       ) : currentPage === 'portfolio' ? (
@@ -302,6 +314,32 @@ function App() {
                         <img src={image.src} alt={image.alt} />
                       </button>
                     ))}
+                  </div>
+                  <div className="technologies-section">
+                    <h3>Tecnologias</h3>
+                    <div className="technologies-gallery">
+                      {[
+                        { name: 'TypeScript', icon: 'typescript', color: '3178C6' },
+                        { name: 'HTML', icon: 'html5', color: 'E34F26' },
+                        { name: 'CSS', icon: 'css', color: '1572B6' },
+                        { name: 'Java', icon: 'openjdk', color: 'FFFFFF' },
+                        { name: 'React', icon: 'react', color: '61DAFB' },
+                        { name: 'Tailwind', icon: 'tailwindcss', color: '06B6D4' },
+                        { name: 'Python', icon: 'python', color: 'FFD43B' },
+                        { name: 'FastAPI', icon: 'fastapi', color: '009688' },
+                        { name: 'PostgreSQL', icon: 'postgresql', color: '4169E1' },
+                        { name: 'Docker', icon: 'docker', color: '2496ED' },
+                      ].map((technology) => (
+                        <div className="technology-card" key={technology.name}>
+                          <img
+                            src={`https://cdn.simpleicons.org/${technology.icon}/${technology.color}`}
+                            alt=""
+                            aria-hidden="true"
+                          />
+                          <span>{technology.name}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </section>
                 <section className="about-section about-section-school">

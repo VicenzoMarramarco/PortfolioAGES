@@ -31,6 +31,7 @@
   text-align: center;
   padding: 2rem;
   position: relative;
+  transform: translateY(8vh);
   z-index: 10;
   color: white;
   display: flex;
@@ -80,10 +81,29 @@
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
+.start-hint {
+  margin: 0;
+  visibility: hidden;
+  color: #f4e85c !important;
+  font-family: "Courier New", monospace;
+  font-size: clamp(0.8rem, 1.6vw, 1.1rem) !important;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px rgba(244, 232, 92, 0.75);
+  animation: start-hint-blink 1.4s steps(2, end) infinite;
+}
+
+@keyframes start-hint-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .content {
     padding: 1rem;
+    transform: translateY(5vh);
     gap: 1.5rem;
   }
 
@@ -95,6 +115,7 @@
 @media (max-width: 480px) {
   .content {
     padding: 0.5rem;
+    transform: translateY(3vh);
     gap: 1rem;
   }
 
