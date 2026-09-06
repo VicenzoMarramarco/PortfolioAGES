@@ -523,6 +523,9 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
   perspective: 1000px;
   opacity: 0;
   transform: translateY(2rem);

@@ -245,7 +245,13 @@ function App() {
                 <p className="page-label">Selected work</p>
                 <div className="projects-gallery">
                   <title>Projects</title>
-                  <div className="project-frame">
+                  <a
+                    className="project-frame"
+                    href="https://vicenzomarramarco.github.io/CalculadoraCientificaAges/"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Abrir o projeto Calculadora Científica"
+                  >
                     <div className="frame-outer">
                       <div className="frame-inner">
                         <img src="/images/calculadora.png" alt="Calculadora" />
@@ -253,8 +259,14 @@ function App() {
                     </div>
                     <h3>Calculadora Científica</h3>
                     <p className="project-description">Uma calculadora moderna com interface intuitiva</p>
-                  </div>
-                  <div className="project-frame">
+                  </a>
+                  <a
+                    className="project-frame"
+                    href="https://vicenzomarramarco.github.io/CambioDeMoeda/"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Abrir o projeto Câmbio de Moeda"
+                  >
                     <div className="frame-outer">
                       <div className="frame-inner">
                         <img src="/images/cambiomoeda.png" alt="Câmbio de Moeda" />
@@ -262,7 +274,7 @@ function App() {
                     </div>
                     <h3>Câmbio de Moeda</h3>
                     <p className="project-description">Conversor de moedas em tempo real</p>
-                  </div>
+                  </a>
                 </div>
               </>
             )}
