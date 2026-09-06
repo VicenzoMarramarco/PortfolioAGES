@@ -211,7 +211,7 @@ function App() {
             <button type="button" className="portfolio-nav-button" onClick={() => setCurrentPage('home')}>
               Home
             </button>
-            <button type="button" className="portfolio-nav-button" onClick={() => setCurrentPage('doom')}>
+            <button type="button" className="portfolio-nav-button-doom" onClick={() => setCurrentPage('doom')}>
               Doom
             </button>
           </nav>
